@@ -1,0 +1,40 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(25deg, rgb(214, 76, 127), rgb(238, 71, 88) 50%);
+  margin-bottom: 30px;
+  & .title {
+    font-size: 28px;
+  }
+}
+.links-list {
+  display: flex;
+  & .link {
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+}
+
+.mat-drawer {
+  left: 0;
+}
+.mat-drawer-container {
+  position: absolute;
+  background: rgb(202, 202, 202);
+  width: 100%;
+  top: 60px;
+  left: 0px;
+}
+
+.blur {
+  position: absolute;
+  width: 100%;
+  background: #c0c0c070;
+  height: 100%;
+  bottom: 0;
+  z-index: 1;
+}

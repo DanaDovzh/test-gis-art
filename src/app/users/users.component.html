@@ -1,0 +1,69 @@
+<div class="mat-elevation-z8 users-table" *ngIf="users.length; else noData">
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+    class="mat-elevation-z8">
+    <ng-container matColumnDef="login">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by login">
+        Login
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.login}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>
+        ID
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef>
+        Url
+      </th>
+      <td mat-cell *matCellDef="let element"> <a data-info="url-repo" [href]="element.url">{{element.url}}</a> </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>
+        Type
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="score">
+      <th mat-header-cell *matHeaderCellDef>
+        Score
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="favorite">
+      <th mat-header-cell *matHeaderCellDef>
+        Favorite
+      </th>
+      <td mat-cell *matCellDef="let element" data-info="favorite">
+        <button data-info="favorite" mat-icon-button color="warn" *ngIf="!checkFavorite(element)" (click)="toggleFavorite('add', element)">
+          <mat-icon data-info="favorite">favorite_border</mat-icon>
+        </button>
+        <button data-info="favorite" mat-icon-button color="warn" *ngIf="checkFavorite(element)" (click)="toggleFavorite('delete', element)">
+          <mat-icon data-info="favorite">favorite</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openUserModal(row, $event)"></tr>
+  </table>
+  <mat-paginator
+    [length]="totalCountUsers"
+    [showFirstLastButtons]="false"
+    [pageSizeOptions]="[5, 10, 20, 30]"
+    [pageSize]="pageSize"
+    (page)="changesPaginator($event)">
+  </mat-paginator>
+</div>
+
+<ng-template #noData>
+  <div class="no-data">No users found</div>
+</ng-template>

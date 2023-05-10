@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+}
+
+.mat-row {
+  &:hover {
+    background: #f5adc7;
+  }
+}
+
+
+th {
+  &.mat-header-cell {
+    text-align: center;
+  }
+}
+
+td {
+  &.mat-cell {
+    text-align: center;
+    &:first-of-type {
+      text-align: inherit;
+    }
+  }
+}

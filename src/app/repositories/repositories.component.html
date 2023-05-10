@@ -1,0 +1,25 @@
+<div class="wrapper-repos" *ngIf="repos.length; else noData">
+  <mat-paginator
+              [length]="repos.length"
+              [pageSizeOptions]="[5, 10, 15, 25]"
+              [pageSize]="pageSize"
+              (page)="changesPaginator($event)"
+              aria-label="Select page">
+</mat-paginator>
+  <mat-grid-list [cols]="colsNumber" gutterSize="4" rowHeight="130">
+    <mat-grid-tile *ngFor="let repo of repoForShow">
+      <mat-card>
+        <mat-card-title>{{ repo.name }} </mat-card-title>
+        <mat-card-content class="repo-content">
+          <p class="repo-content--item"><mat-icon class="repo-content--icon">date_range</mat-icon><span class="repo-content--title">Created:</span> {{ repo.created_at | date }}</p>
+          <p class="repo-content--item"><mat-icon class="repo-content--icon">update</mat-icon><span class="repo-content--title">Updated:</span> {{ repo.updated_at | date }}</p>
+          <p class="repo-content--item"><mat-icon class="repo-content--icon">star_border</mat-icon><span class="repo-content--title">Star:</span> {{ repo.stargazers_count }}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<ng-template #noData>
+  <div class="no-data">No repos</div>
+</ng-template>
