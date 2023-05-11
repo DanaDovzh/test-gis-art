@@ -15,12 +15,12 @@ const routes: Routes = [
   },
   {
     path: 'favorites',
-    component: FavoritesComponent
+    component: FavoritesComponent,
   },
   {
     path: 'repositories/:login',
-    component: RepositoriesComponent
-  }
+    component: RepositoriesComponent,
+  },
 ];
 
 @NgModule({

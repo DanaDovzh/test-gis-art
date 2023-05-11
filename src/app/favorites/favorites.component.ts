@@ -47,6 +47,7 @@ export class FavoritesComponent implements OnInit {
         return user;
       }
     );
+
     localStorage.setItem('users', JSON.stringify(updatedUsers));
   }
 

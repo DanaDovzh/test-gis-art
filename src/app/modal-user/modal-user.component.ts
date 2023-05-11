@@ -10,6 +10,5 @@ import { UsersItemsInterface } from '../interface/users.interface';
 export class ModalUserComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public user: UsersItemsInterface) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

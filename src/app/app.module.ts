@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalUserComponent } from './modal-user/modal-user.component';
 import { RepositoriesComponent } from './repositories/repositories.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{ provide: 'API_URL', useValue: environment.apiUrl }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

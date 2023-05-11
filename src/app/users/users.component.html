@@ -1,5 +1,6 @@
 <div class="filter">
   <input class="inp-filter" type="text" [(ngModel)]="filterControl" placeholder="Filter users">
+  <span class="error" *ngIf="!filterControl.length">At leaste one character</span>
   <button class="btn-apply" color="primary" mat-stroked-button (click)="applyFilter()" [disabled]="!filterControl.length">Apply</button>
 </div>
 <div class="users-table" *ngIf="users.length; else noData">
@@ -69,7 +70,9 @@
 </div>
 
 <ng-template #noData>
-  <div class="no-data">No users found</div>
+  <div class="no-data">No users found
+    <div class="no-data--propose">Please, use the filter</div>
+  </div>
 </ng-template>
 
 <div class="blur spinner" *ngIf="isShowSpinner">

@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   totalCountUsers: number = 0;
   dataSource = new MatTableDataSource<UsersItemsInterface>(this.users);
   isShowSpinner: boolean = false;
-  filterControl: string = 'A';
+  filterControl: string = '';
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   constructor(
@@ -43,14 +43,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     private _snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {
-    this.getUsers({
-          q: this.filterControl,
-      page: 1,
-      per_page: this.pageSize,
-    });
-    this.dataSource = new MatTableDataSource<UsersItemsInterface>(this.users);
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -67,7 +60,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
         );
         this.isShowSpinner = false;
         this.totalCountUsers = data.total_count;
-        this.openAlert('Users has been loaded', 'success');
       },
       () => {
         this.openAlert('Something went wrong', 'danger');
@@ -137,7 +129,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     const params: RequestUsersInterface = {
       page: this.currentPage,
       per_page: this.pageSize,
-      q: this.filterControl
+      q: this.filterControl,
     };
     this.getUsers(params);
   }
@@ -145,7 +137,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   openAlert(message: string, classAlert: 'danger' | 'success') {
     this._snackBar.open(message, 'Close', {
       duration: 3000,
-      panelClass: ['alert', classAlert]
+      panelClass: ['alert', classAlert],
     });
   }
 }

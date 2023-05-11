@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { RequestUsersInterface } from '../interface/users.interface';
+import { Inject, Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    @Inject('API_URL') private _apiUrl: string
+  ) {}
 
   getUsers(params: any) {
-    return this._http.get('https://api.github.com/search/users?', { params })
+    return this._http.get(`${this._apiUrl}/search/users`, { params });
   }
 }

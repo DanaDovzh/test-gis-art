@@ -3,10 +3,10 @@
   <mat-list-item *ngFor="let user of usersFavorites; let i = index;" class="favorites-list-item" >
     <div matListItemLine class="favorites-user">
       <img class="favorites-user--avatar favorites-user--info" [src]="user.avatar_url" alt="">
-      <a class="favorites-user--info link" [href]="user.login">{{ user.login }}</a>
+      <a class="favorites-user--info link" [href]="user.html_url" target="_blank">{{ user.login }}</a>
       <a class="favorites-user--info link" [routerLink]="['/repositories', user.login]">Repo</a>
       <div class="add-comment">
-        <input [class.err-border]="commentFormControl[i].errors" type="text" (blur)="hideBtnAction(i)" [formControl]="commentFormControl[i]" placeholder="Comment" class="add-comment--input">
+        <input [class.err-border]="commentFormControl[i].errors" type="text" [formControl]="commentFormControl[i]" placeholder="Comment" class="add-comment--input">
         <p class="error" *ngIf="commentFormControl[i].errors">
           <span class="error-message" *ngIf="commentFormControl[i].errors?.['maxlength']">Max. length should be 100 characters</span>
           <span class="error-message" *ngIf="commentFormControl[i].errors?.['minlength']">Min. length should be 10 characters</span>
