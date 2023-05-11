@@ -74,3 +74,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-right: 0px !important;
   }
 }
+
+.alert {
+  color: #ffffff;
+  &.danger {
+    background: rgb(105, 1, 1);
+    & .mat-simple-snackbar-action button {
+      color: #a1a1a1;
+    }
+  }
+  &.success {
+    background: rgb(46, 139, 0);
+    & .mat-simple-snackbar-action button {
+      color: #414141;
+    }
+  }
+}

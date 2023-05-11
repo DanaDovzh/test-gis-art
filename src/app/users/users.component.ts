@@ -11,6 +11,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { ModalUserComponent } from '../modal-user/modal-user.component';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -38,15 +39,16 @@ export class UsersComponent implements OnInit, AfterViewInit {
     private _liveAnnouncer: LiveAnnouncer,
     private _usersService: UsersService,
     public dialog: MatDialog,
-    private _router: Router
+    private _router: Router,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    // this.getUsers({
-          // q: this.filterControl,
-    //   page: 1,
-    //   per_page: this.pageSize,
-    // });
+    this.getUsers({
+          q: this.filterControl,
+      page: 1,
+      per_page: this.pageSize,
+    });
     this.dataSource = new MatTableDataSource<UsersItemsInterface>(this.users);
   }
 
@@ -65,8 +67,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
         );
         this.isShowSpinner = false;
         this.totalCountUsers = data.total_count;
+        this.openAlert('Users has been loaded', 'success');
       },
-      (error) => {}
+      () => {
+        this.openAlert('Something went wrong', 'danger');
+      }
     );
   }
 
@@ -135,5 +140,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
       q: this.filterControl
     };
     this.getUsers(params);
+  }
+
+  openAlert(message: string, classAlert: 'danger' | 'success') {
+    this._snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: ['alert', classAlert]
+    });
   }
 }
