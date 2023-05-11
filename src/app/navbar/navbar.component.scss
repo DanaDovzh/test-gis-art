@@ -16,6 +16,11 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
+    &:hover {
+      span {
+        text-decoration: underline;
+      }
+    }
   }
 }
 
@@ -30,11 +35,4 @@
   left: 0px;
 }
 
-.blur {
-  position: absolute;
-  width: 100%;
-  background: #c0c0c070;
-  height: 100%;
-  bottom: 0;
-  z-index: 1;
-}
+

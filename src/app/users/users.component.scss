@@ -15,11 +15,29 @@ th {
   }
 }
 
+
 td {
   &.mat-cell {
     text-align: center;
+    overflow-wrap: anywhere;
     &:first-of-type {
       text-align: inherit;
     }
+  }
+}
+
+.filter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-right: 10px;
+  margin-bottom: 15px;
+  & .inp-filter {
+    border-color: #d64c7f;
+    outline: none;
+  }
+  & .btn-apply {
+    border-color: #d64c7f;
+    color: #52001e;
   }
 }

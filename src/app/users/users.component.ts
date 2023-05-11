@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit, AfterViewInit {
   pageSize: number = 10;
+  currentPage: number = 1;
   users: any[] = [];
   displayedColumns: string[] = [
     'login',
@@ -29,6 +30,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   ];
   totalCountUsers: number = 0;
   dataSource = new MatTableDataSource<UsersItemsInterface>(this.users);
+  isShowSpinner: boolean = false;
+  filterControl: string = 'A';
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   constructor(
@@ -39,10 +42,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUsers({
-      page: 1,
-      per_page: this.pageSize
-    })
+    // this.getUsers({
+          // q: this.filterControl,
+    //   page: 1,
+    //   per_page: this.pageSize,
+    // });
     this.dataSource = new MatTableDataSource<UsersItemsInterface>(this.users);
   }
 
@@ -52,12 +56,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   getUsers(params: RequestUsersInterface) {
+    this.isShowSpinner = true;
     this._usersService.getUsers(params).subscribe(
       (data: any) => {
         this.users = data.items;
         this.dataSource = new MatTableDataSource<UsersItemsInterface>(
           this.users
         );
+        this.isShowSpinner = false;
         this.totalCountUsers = data.total_count;
       },
       (error) => {}
@@ -70,6 +76,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  applyFilter() {
+    const params: RequestUsersInterface = {
+      q: this.filterControl,
+      per_page: this.pageSize,
+      page: this.currentPage,
+    };
+    this.getUsers(params);
   }
 
   checkFavorite(user: UsersItemsInterface) {
@@ -101,27 +116,24 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   openUserModal(user: UsersItemsInterface, event: MouseEvent) {
     event.preventDefault();
-    if((event.srcElement as HTMLTableCellElement).dataset['info'] == 'url-repo') {
+    const dataSetInfo = (event.srcElement as HTMLTableCellElement).dataset[
+      'info'
+    ];
+    if (dataSetInfo == 'url-repo') {
       this._router.navigate(['repositories', user.login]);
-    } else if((event.srcElement as HTMLTableCellElement).dataset['info'] != 'favorite'){
-      console.log((event.srcElement as HTMLTableCellElement).dataset['info'], (event));
-
+    } else if (dataSetInfo != 'favorite') {
       this.dialog.open(ModalUserComponent, { data: user });
     }
   }
 
   changesPaginator(event: PageEvent) {
     this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex + 1;
     const params: RequestUsersInterface = {
-      page: event.pageIndex + 1,
+      page: this.currentPage,
       per_page: this.pageSize,
+      q: this.filterControl
     };
-    console.log(event);
-
-    this._usersService.getUsers(params).subscribe((data: any) => {
-      this.users = data.items;
-      this.dataSource = new MatTableDataSource<UsersItemsInterface>(this.users);
-      this.totalCountUsers = data.total_count;
-    });
+    this.getUsers(params);
   }
 }

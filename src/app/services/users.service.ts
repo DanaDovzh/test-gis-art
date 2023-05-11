@@ -8,7 +8,7 @@ export class UsersService {
 
   constructor(private _http: HttpClient) {}
 
-  getUsers(params?: any) {
-    return this._http.get('https://api.github.com/search/users?q=shdevsir', { params })
+  getUsers(params: any) {
+    return this._http.get('https://api.github.com/search/users?', { params })
   }
 }

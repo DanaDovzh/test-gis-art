@@ -10,6 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   exports: [
     MatToolbarModule,
@@ -23,6 +24,7 @@ import {MatCardModule} from '@angular/material/card';
     MatDialogModule,
     MatGridListModule,
     MatCardModule,
+    MatProgressSpinnerModule
   ],
 })
 export class MaterialModule {}

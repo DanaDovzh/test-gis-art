@@ -23,3 +23,6 @@
 <ng-template #noData>
   <div class="no-data">No repos</div>
 </ng-template>
+<div class="blur spinner" *ngIf="isShowSpinner">
+  <mat-spinner class="spinner-item"></mat-spinner>
+</div>

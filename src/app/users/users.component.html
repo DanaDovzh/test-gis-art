@@ -1,4 +1,8 @@
-<div class="mat-elevation-z8 users-table" *ngIf="users.length; else noData">
+<div class="filter">
+  <input class="inp-filter" type="text" [(ngModel)]="filterControl" placeholder="Filter users">
+  <button class="btn-apply" color="primary" mat-stroked-button (click)="applyFilter()" [disabled]="!filterControl.length">Apply</button>
+</div>
+<div class="users-table" *ngIf="users.length; else noData">
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
     class="mat-elevation-z8">
     <ng-container matColumnDef="login">
@@ -67,3 +71,7 @@
 <ng-template #noData>
   <div class="no-data">No users found</div>
 </ng-template>
+
+<div class="blur spinner" *ngIf="isShowSpinner">
+  <mat-spinner class="spinner-item"></mat-spinner>
+</div>

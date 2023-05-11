@@ -11,7 +11,5 @@ export class ModalUserComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public user: UsersItemsInterface) {}
 
   ngOnInit(): void {
-    console.log(this.user);
-
   }
 }

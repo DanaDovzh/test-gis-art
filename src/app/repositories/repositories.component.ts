@@ -14,8 +14,9 @@ export class RepositoriesComponent implements OnInit {
   repoForShow: any[] = [];
   pageSize: number = 10;
   colsNumber: number = 3;
+  isShowSpinner: boolean = false;
   @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
+  onResize() {
     if (window.innerWidth < 770) {
       this.colsNumber = 2;
     }
@@ -32,13 +33,16 @@ export class RepositoriesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isShowSpinner = true;
     this.loginUser = this._route.snapshot.paramMap.get('login') as string;
       this._repositoriesService
         .getInfoRepositories(this.loginUser)
         .subscribe((data: any) => {
           this.repos = data;
           this.repoForShow = [...this.repos].slice(0, this.pageSize);
+          this.isShowSpinner = false;
         });
+  this.onResize();
   }
 
   changesPaginator(pageEvent: PageEvent) {
